@@ -9,9 +9,14 @@ miFrame=tk.Frame()
 miFrame.pack()
 miFrame.config(width="650", heigh="350")
 
+"""
+frameDelete=tk.Frame()
+frameDelete.pack()
+frameDelete.config(width="650", heigh="350")
+
 frame_add_pd=tk.Frame()
 frame_add_pd.pack()
-frame_add_pd.config(width="650",heigh="350")
+frame_add_pd.config(width="650",heigh="350")"""
 
 
 def save_data(c_nombre,c_marca,c_desc,c_precio):
@@ -24,7 +29,8 @@ def save_data(c_nombre,c_marca,c_desc,c_precio):
     print('Return:',res)
 
     #cliente.service.say_hello('audifonos',1)
-    """root = ET.Element("root")
+    """
+    root = ET.Element("root")
     producto = ET.SubElement(root, "producto")
     nombre = ET.SubElement(producto, "nombre", name="nodo")
     nombre.text = puno
@@ -57,16 +63,27 @@ def ingresar_producto():
     botonenvio = tk.Button(raiz,text="Enviar",command=lambda:save_data(c_nombre,c_marca,c_desc,c_precio))
     botonenvio.pack()
 
+
+
+
+def save_delete(c_ID):
+    cliente = Client('http://localhost:8000/?wsdl')
+    uno = c_ID.get()
+    res = cliente.service.deletePd(uno)
+    print('Return:',res)
+
+def ingresaID():
+    l_ID = tk.Label(miFrame, text= "Ingrese ID del producto")
+    l_ID.grid(row=0,column=0,padx=10,pady=10)
+    c_ID = tk.Entry(miFrame)
+    c_ID.grid(row=0,column=1,padx=10,pady=10)
+    botonenvia = tk.Button(raiz,text="Enviar elimina",command=lambda:save_delete(c_ID))
+    botonenvia.pack()
+
 botonaddPd = tk.Button(raiz,text="Aadir producto",command=ingresar_producto)
 botonaddPd.pack()
-
-
-
-    
-
-
-
-
+botondeletePd = tk.Button(raiz,text="Eliminar producto",command=ingresaID)
+botondeletePd.pack(side = "bottom")
 
 tk.mainloop()
 # Termina interfaz

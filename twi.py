@@ -34,6 +34,19 @@ class HelloWorldService(ServiceBase):
         msj = "Producto ingresado"
         return nombre_pm
 
+    @srpc(Unicode, _returns = Unicode)
+    def deletePd(id_pt):
+        tree = ET.parse('productos.xml')
+        root = tree.getroot()
+        #producto = ET.SubElement(root, "producto")
+        for producto in root.findall('producto'):
+
+            idP = producto.attrib['id']
+            if idP == id_pt:
+                root.remove(producto)
+        tree.write("./productos.xml")
+        return id_pt
+
 
 application = Application([HelloWorldService],
                           tns='spyne.examples.hello',
